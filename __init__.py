@@ -19,7 +19,7 @@
 bl_info = {
     "name": "Face Motion Capture",
     "author": "CG Matter, Blender Defender",
-    "version": (1, 0, 0),
+    "version": (1, 0, 1),
     "blender": (2, 82, 0),
     "location": "View3D > Add > Motion Capture > Set up Facial Motion Capture",
     "description": "Turns your Trackers and your head into facial motion capture!",
