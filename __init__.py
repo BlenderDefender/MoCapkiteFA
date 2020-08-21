@@ -36,9 +36,9 @@ from . import addon_updater_ops
 
 
 #The following Operator does the pre-alignment (Minimal changes needed)
-class doPreAlign_OP(bpy.types.Operator):
+class MOCAPKITEFA_OT_pre_align(bpy.types.Operator):
     """Adds a camera and pre aligns it and the Active Object"""
-    bl_idname = "op.pre_alignment"
+    bl_idname = "mocapkitefa.pre_alignment"
     bl_label = "Pre-Align"
     bl_options = {'REGISTER'}
 
@@ -75,9 +75,9 @@ class doPreAlign_OP(bpy.types.Operator):
 
 
 #The following Operator set's up the motion Capture
-class doMoCap_OP(bpy.types.Operator):
+class MOCAPKITEFA_OT_facial_mocap(bpy.types.Operator):
     """Setup Motion Capture (Needs Tracker Setup + Active Object)"""
-    bl_idname = "op.facial_mocap"
+    bl_idname = "mocapkitefa.facial_mocap"
     bl_label = "Set Up Facial Motion Capture"
     bl_options = {'REGISTER'}
     
@@ -166,23 +166,23 @@ class doMoCap_OP(bpy.types.Operator):
         return {'FINISHED'}
 
 
-#The following menu appears in the "Add" menu and contains the "doMoCap_OP" Operator
-class Motion_Capture_Menu(bpy.types.Menu):
-    bl_idname = 'menu.motion_capture'
+#The following menu appears in the "Add" menu and contains the "MOCAPKITEFA_OT_facial_mocap" Operator
+class MOCAPKITEFA_MT_main_menu(bpy.types.Menu):
+    bl_idname = 'mocapkitefa.menu'
     bl_label = 'Motion Capture'
 
     def draw(self, context):
         layout = self.layout
-        layout.operator(doPreAlign_OP.bl_idname, icon = 'PLUS')
-        layout.operator(doMoCap_OP.bl_idname, icon = 'SHADERFX')
+        layout.operator(MOCAPKITEFA_OT_pre_align.bl_idname, icon = 'PLUS')
+        layout.operator(MOCAPKITEFA_OT_facial_mocap.bl_idname, icon = 'SHADERFX')
         
 
 
 def menu_func(self, context):
-    self.layout.menu(Motion_Capture_Menu.bl_idname)
+    self.layout.menu(MOCAPKITEFA_MT_main_menu.bl_idname)
 
 
-class DemoPreferences(bpy.types.AddonPreferences):
+class MOCAPKITEFA_APT_Preferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
 	# addon updater preferences
@@ -190,7 +190,7 @@ class DemoPreferences(bpy.types.AddonPreferences):
 	auto_check_update = bpy.props.BoolProperty(
 		name="Auto-check for Update",
 		description="If enabled, auto-check for updates using an interval",
-		default=False,
+		default=True,
 		)
 	updater_intrval_months = bpy.props.IntProperty(
 		name='Months',
@@ -225,6 +225,8 @@ class DemoPreferences(bpy.types.AddonPreferences):
 		# col = layout.column() # works best if a column, or even just self.layout
 		mainrow = layout.row()
 		col = mainrow.column()
+		layout.operator("wm.url_open", text="Checkout Gumroad for other addons and more...", icon='FUND').url="https://gumroad.com/blenderdefender"
+
 
 		# updater draw function
 		# could also pass in col as third arg
@@ -243,10 +245,10 @@ class DemoPreferences(bpy.types.AddonPreferences):
 
 
 classes = (
-	DemoPreferences,
-	doPreAlign_OP,
-	doMoCap_OP,
-	Motion_Capture_Menu,
+	MOCAPKITEFA_OT_pre_align,
+	MOCAPKITEFA_OT_facial_mocap,
+	MOCAPKITEFA_MT_main_menu,
+	MOCAPKITEFA_APT_Preferences,
 	
 )
 
