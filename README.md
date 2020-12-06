@@ -55,3 +55,10 @@ After the programm finished successfully, it should look like this:
 
 And yes, that's all you have to do. You might adjust the weight paint a bit so that it looks more natural.
 **[Watch this video from CG Matter](https://www.youtube.com/watch?v=uNK8S19OSmA) if you want a detailed explanaition on how to do the MoCap.**
+
+## System requirements:
+| **OS** | **Blender** |
+| ------------- | ------------- |
+| OSX | Testing, please give feedback if it works for you. |
+| Windows | Blender 2.80+ |
+| Linux | Testing, please give feedback if it works for you. |
