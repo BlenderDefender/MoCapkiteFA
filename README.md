@@ -1,3 +1,5 @@
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=TV9HL7YRHZR7U)  
+
 # MoCapkiteFA
 MoCapkiteFA is an addon for blender, that allows you to quickly set up facial motion capture with just 3 easy steps.
 
