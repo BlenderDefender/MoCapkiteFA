@@ -1,6 +1,6 @@
 [![Donate](https://img.shields.io/badge/DONATE!%20Funding%20Goal%3A%20%24140%20(1%20Day%20Developer%20Time)-%240-red?style=for-the-badge&logo=paypal)](https://www.paypal.com/donate?hosted_button_id=G55AG65MPHLM6)  
 ![GitHub](https://img.shields.io/github/license/BlenderDefender/MoCapkiteFA?color=green&style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/BlenderDefender/MoCapkiteFA?style=for-the-badge)
+[![GitHub issues](https://img.shields.io/github/issues/BlenderDefender/MoCapkiteFA?style=for-the-badge)](https://github.com/BlenderDefender/MoCapkiteFA/issues)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/BlenderDefender/MoCapkiteFA?style=for-the-badge)
 # MoCapkiteFA
 MoCapkiteFA is an addon for blender, that allows you to quickly set up facial motion capture with just 3 easy steps.
