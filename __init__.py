@@ -22,9 +22,9 @@ import bpy
 from . import addon_updater_ops
 
 bl_info = {
-    "name": "Face Motion Capture",
-    "author": "CG Matter, Blender Defender",
-    "version": (1, 0, 1),
+    "name": "MoCapkiteFA - Face Motion Capture",
+    "author": "Blender Defender, CG Matter",
+    "version": (1, 0, 2),
     "blender": (2, 82, 0),
     "location": "View3D > Add > Motion Capture > Set up Facial Motion Capture",
     "description": "Turns your Trackers and your head into facial motion capture!",
