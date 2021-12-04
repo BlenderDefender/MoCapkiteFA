@@ -29,7 +29,7 @@ bl_info = {
     "location": "View3D > Add > Motion Capture > Set up Facial Motion Capture",
     "description": "Turns your Trackers and your head into facial motion capture!",
     "warning": "You might run in trouble with translated Blender versions. Use English version!",
-    "wiki_url": "https://github.com/BlenderDefender/MoCapkiteFA#mocapkitefa",
+    "doc_url": "https://github.com/BlenderDefender/MoCapkiteFA#mocapkitefa",
     "tracker_url": "https://github.com/BlenderDefender/MoCapkiteFA/issues",
     "category": "Animation"}
 
