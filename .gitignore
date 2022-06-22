@@ -1,0 +1,7 @@
+# Ignore VS Code settings
+.vscode/
+
+# Ignore folders created by the CG Cookie Updater
+*_updater/
+
+__pycache__/
