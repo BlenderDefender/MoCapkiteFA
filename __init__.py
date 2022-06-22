@@ -17,6 +17,17 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import bpy
+from bpy.types import (
+    AddonPreferences,
+    Context,
+    Menu,
+    Operator,
+    UILayout
+)
+from bpy.props import (
+    BoolProperty,
+    IntProperty,
+)
 
 # updater ops import, all setup in this file
 from . import addon_updater_ops
@@ -31,11 +42,12 @@ bl_info = {
     "warning": "You might run in trouble with translated Blender versions. Use English version!",
     "doc_url": "https://github.com/BlenderDefender/MoCapkiteFA#mocapkitefa",
     "tracker_url": "https://github.com/BlenderDefender/MoCapkiteFA/issues",
-    "category": "Animation"}
+    "category": "Animation"
+}
 
 
 # The following Operator does the pre-alignment (Minimal changes needed)
-class MOCAPKITEFA_OT_pre_align(bpy.types.Operator):
+class MOCAPKITEFA_OT_pre_align(Operator):
     """Adds a camera and pre aligns it and the Active Object"""
     bl_idname = "mocapkitefa.pre_alignment"
     bl_label = "Pre-Align"
@@ -45,10 +57,10 @@ class MOCAPKITEFA_OT_pre_align(bpy.types.Operator):
     def poll(cls, context):
         return context.active_object is not None
 
-    def execute(self, context):
+    def execute(self, context: Context):
 
-        bpy.context.scene.frame_set(1)
-        for obj in bpy.context.selected_objects:
+        context.scene.frame_set(1)
+        for obj in context.selected_objects:
             obj.name = "Head"
             obj.data.name = "Head"
             bpy.ops.transform.rotate(
@@ -56,38 +68,38 @@ class MOCAPKITEFA_OT_pre_align(bpy.types.Operator):
 
         bpy.ops.object.camera_add(location=(0, 0, 5), rotation=(0, 0, 0))
         bpy.ops.view3d.object_as_camera()
-        for obj in bpy.context.selected_objects:
+        for obj in context.selected_objects:
             obj.name = "TopCamMoCap"
             obj.data.name = "TopCamMoCap"
         bpy.ops.object.transform_apply()
         bpy.data.objects['TopCamMoCap'].select_set(False)
 
-        bpy.context.area.ui_type = 'CLIP_EDITOR'
+        context.area.ui_type = 'CLIP_EDITOR'
         bpy.ops.clip.select_all(action='SELECT')
         bpy.ops.clip.track_to_empty()
-        bpy.context.area.ui_type = 'VIEW_3D'
+        context.area.ui_type = 'VIEW_3D'
 
         return {'FINISHED'}
 
 
 # The following Operator set's up the motion Capture
-class MOCAPKITEFA_OT_facial_mocap(bpy.types.Operator):
+class MOCAPKITEFA_OT_facial_mocap(Operator):
     """Setup Motion Capture (Needs Tracker Setup + Active Object)"""
     bl_idname = "mocapkitefa.facial_mocap"
     bl_label = "Set Up Facial Motion Capture"
     bl_options = {'REGISTER'}
 
     @classmethod
-    def poll(cls, context):
+    def poll(cls, context: Context):
         return context.active_object is not None
 
-    def execute(self, context):
+    def execute(self, context: Context):
 
         iter = 1
 
         # rename trackers
         FaceTrackers = bpy.data.collections.new('FaceTrackers')
-        bpy.context.scene.collection.children.link(FaceTrackers)
+        context.scene.collection.children.link(FaceTrackers)
         for trackers in bpy.data.objects:
             if trackers.type != 'EMPTY':
                 continue
@@ -99,21 +111,21 @@ class MOCAPKITEFA_OT_facial_mocap(bpy.types.Operator):
                 o.name = "Tracker%d" % (i+1)
 
         # face mesh setup
-        bpy.context.scene.frame_set(1)
+        context.scene.frame_set(1)
         bpy.ops.object.transform_apply()
 
         # trackers with depth
         for value in range(1, iter):
             selectname = "Tracker" + str(value)
             ob = bpy.data.objects[selectname]
-            bpy.context.view_layer.objects.active = ob
-            bpy.context.object.constraints["Follow Track"].depth_object = bpy.data.objects["Head"]
+            context.view_layer.objects.active = ob
+            context.object.constraints["Follow Track"].depth_object = bpy.data.objects["Head"]
 
         # add armatures to trackers
         for value in range(1, iter):
             selectname = "Tracker" + str(value)
             ob = bpy.data.objects[selectname]
-            bpy.context.view_layer.objects.active = ob
+            context.view_layer.objects.active = ob
             bpy.ops.object.armature_add(
                 enter_editmode=False, location=ob.matrix_world.translation)
 
@@ -125,7 +137,7 @@ class MOCAPKITEFA_OT_facial_mocap(bpy.types.Operator):
                 bones.select_set(state=True)
 
         # join armatures in correct order
-        bpy.context.view_layer.objects.active = ob = bpy.data.objects['Armature']
+        context.view_layer.objects.active = ob = bpy.data.objects['Armature']
         bpy.ops.object.join()
         bpy.ops.object.transform_apply()
 
@@ -154,59 +166,59 @@ class MOCAPKITEFA_OT_facial_mocap(bpy.types.Operator):
             bone = bpy.data.objects['Armature'].data.bones.get(bonename)
             bpy.data.objects['Armature'].data.bones.active = bone
             bpy.ops.pose.constraint_add(type='COPY_LOCATION')
-            bpy.context.object.pose.bones[bonename].constraints["Copy Location"].use_z = False
-            bpy.context.object.pose.bones[bonename].constraints["Copy Location"].target = bpy.data.objects[trackname]
+            context.object.pose.bones[bonename].constraints["Copy Location"].use_z = False
+            context.object.pose.bones[bonename].constraints["Copy Location"].target = bpy.data.objects[trackname]
             bone.select = False
 
         return {'FINISHED'}
 
 
 # The following menu appears in the "Add" menu and contains the "MOCAPKITEFA_OT_facial_mocap" Operator
-class MOCAPKITEFA_MT_main_menu(bpy.types.Menu):
+class MOCAPKITEFA_MT_main_menu(Menu):
     bl_idname = 'mocapkitefa.menu'
     bl_label = 'Motion Capture'
 
-    def draw(self, context):
-        layout = self.layout
+    def draw(self, context: Context):
+        layout: UILayout = self.layout
         layout.operator(MOCAPKITEFA_OT_pre_align.bl_idname, icon='PLUS')
         layout.operator(MOCAPKITEFA_OT_facial_mocap.bl_idname, icon='SHADERFX')
 
 
-def menu_func(self, context):
+def menu_func(self, context: Context):
     self.layout.menu(MOCAPKITEFA_MT_main_menu.bl_idname)
 
 
-class MOCAPKITEFA_APT_Preferences(bpy.types.AddonPreferences):
+class MOCAPKITEFA_APT_Preferences(AddonPreferences):
     bl_idname = __package__
 
     # addon updater preferences
 
-    auto_check_update: bpy.props.BoolProperty(
+    auto_check_update: BoolProperty(
         name="Auto-check for Update",
         description="If enabled, auto-check for updates using an interval",
         default=True,
     )
-    updater_intrval_months: bpy.props.IntProperty(
+    updater_intrval_months: IntProperty(
         name='Months',
         description="Number of months between checking for updates",
         default=0,
         min=0
     )
-    updater_intrval_days: bpy.props.IntProperty(
+    updater_intrval_days: IntProperty(
         name='Days',
         description="Number of days between checking for updates",
         default=7,
         min=0,
         max=31
     )
-    updater_intrval_hours: bpy.props.IntProperty(
+    updater_intrval_hours: IntProperty(
         name='Hours',
         description="Number of hours between checking for updates",
         default=0,
         min=0,
         max=23
     )
-    updater_intrval_minutes: bpy.props.IntProperty(
+    updater_intrval_minutes: IntProperty(
         name='Minutes',
         description="Number of minutes between checking for updates",
         default=0,
@@ -215,7 +227,7 @@ class MOCAPKITEFA_APT_Preferences(bpy.types.AddonPreferences):
     )
 
     def draw(self, context):
-        layout = self.layout
+        layout: UILayout = self.layout
         # col = layout.column() # works best if a column, or even just self.layout
         mainrow = layout.row()
         col = mainrow.column()
