@@ -42,6 +42,7 @@ bl_info = {
     "warning": "You might run in trouble with translated Blender versions. Use English version!",
     "doc_url": "https://github.com/BlenderDefender/MoCapkiteFA#mocapkitefa",
     "tracker_url": "https://github.com/BlenderDefender/MoCapkiteFA/issues",
+    "endpoint_url": "https://raw.githubusercontent.com/BlenderDefender/BlenderDefender/updater_endpoints/MOCAPKITEFA.json",
     "category": "Animation"
 }
 
