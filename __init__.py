@@ -104,9 +104,10 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
         for trackers in bpy.data.objects:
             if trackers.type != 'EMPTY':
                 continue
-            else:
-                iter = iter + 1
-                FaceTrackers.objects.link(trackers)
+
+            iter = iter + 1
+            FaceTrackers.objects.link(trackers)
+
         if FaceTrackers:
             for i, o in enumerate(FaceTrackers.objects):
                 o.name = "Tracker%d" % (i+1)
@@ -134,8 +135,8 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
         for bones in bpy.data.objects:
             if bones.type != 'ARMATURE':
                 continue
-            else:
-                bones.select_set(state=True)
+
+            bones.select_set(state=True)
 
         # join armatures in correct order
         context.view_layer.objects.active = ob = bpy.data.objects['Armature']
@@ -144,12 +145,10 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
 
         # rename bones in armature
         for value in range(1, iter):
+            bonename = "Bone." + "0" * (2 - len(str(value - 1))) + str(value - 1)
             if value == 1:
                 bonename = "Bone"
-            elif value > 1 and value < 11:
-                bonename = "Bone.00" + str(value-1)
-            elif value >= 11:
-                bonename = "Bone.0" + str(value-1)
+
             bone = bpy.data.objects['Armature'].data.bones.get(bonename)
             bpy.data.objects['Armature'].data.bones[bonename].name = 'Bone' + \
                 str(value)
