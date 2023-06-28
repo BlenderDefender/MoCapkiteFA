@@ -109,8 +109,8 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
             face_trackers.objects.link(trackers)
 
         if face_trackers:
-            for i, o in enumerate(face_trackers.objects):
-                o.name = "Tracker%d" % (i+1)
+            for i, object in enumerate(face_trackers.objects):
+                object.name = f"Tracker{i + 1}"
 
         # face mesh setup
         context.scene.frame_set(1)
@@ -118,14 +118,14 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
 
         # trackers with depth
         for value in range(1, iter):
-            select_name = "Tracker" + str(value)
+            select_name = f"Tracker{value}"
             ob = bpy.data.objects[select_name]
             context.view_layer.objects.active = ob
             context.object.constraints["Follow Track"].depth_object = bpy.data.objects["Head"]
 
         # add armatures to trackers
         for value in range(1, iter):
-            select_name = "Tracker" + str(value)
+            select_name = f"Tracker{value}"
             ob = bpy.data.objects[select_name]
             context.view_layer.objects.active = ob
             bpy.ops.object.armature_add(
@@ -150,8 +150,7 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
                 bone_name = "Bone"
 
             bone = bpy.data.objects['Armature'].data.bones.get(bone_name)
-            bpy.data.objects['Armature'].data.bones[bone_name].name = 'Bone' + \
-                str(value)
+            bpy.data.objects['Armature'].data.bones[bone_name].name = f'Bone{value}'
 
         # parent face to bones
         bpy.data.objects['Head'].select_set(True)
@@ -161,8 +160,8 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
         # parent bones to trackers
         bpy.ops.object.posemode_toggle()
         for value in range(1, iter):
-            track_name = "Tracker" + str(value)
-            bone_name = "Bone" + str(value)
+            track_name = f"Tracker{value}"
+            bone_name = f"Bone{value}"
             bone = bpy.data.objects['Armature'].data.bones.get(bone_name)
             bpy.data.objects['Armature'].data.bones.active = bone
             bpy.ops.pose.constraint_add(type='COPY_LOCATION')
