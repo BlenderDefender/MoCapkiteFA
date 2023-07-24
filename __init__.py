@@ -145,7 +145,8 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
 
         # rename bones in armature
         for value in range(1, iter):
-            bone_name = "Bone." + "0" * (2 - len(str(value - 1))) + str(value - 1)
+            bone_name = "Bone." + "0" * \
+                (2 - len(str(value - 1))) + str(value - 1)
             if value == 1:
                 bone_name = "Bone"
 
@@ -227,26 +228,12 @@ class MOCAPKITEFA_APT_Preferences(AddonPreferences):
 
     def draw(self, context):
         layout: UILayout = self.layout
-        # col = layout.column() # works best if a column, or even just self.layout
-        mainrow = layout.row()
-        col = mainrow.column()
+
         layout.operator("wm.url_open", text="Checkout Gumroad for other addons and more...",
                         icon='FUND').url = "https://gumroad.com/blenderdefender"
 
         # updater draw function
-        # could also pass in col as third arg
         addon_updater_ops.update_settings_ui(self, context)
-
-        # Alternate draw function, which is more condensed and can be
-        # placed within an existing draw function. Only contains:
-        #   1) check for update/update now buttons
-        #   2) toggle for auto-check (interval will be equal to what is set above)
-        # addon_updater_ops.update_settings_ui_condensed(self, context, col)
-
-        # Adding another column to help show the above condensed ui as one column
-        # col = mainrow.column()
-        # col.scale_y = 2
-        # col.operator("wm.url_open","Open webpage ").url=addon_updater_ops.updater.website
 
 
 classes = (
@@ -274,11 +261,9 @@ def register():
 
 
 def unregister():
-    # addon updater unregister
     addon_updater_ops.unregister()
 
     bpy.types.VIEW3D_MT_add.remove(menu_func)
 
-    # register the example panel, to show updater buttons
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
