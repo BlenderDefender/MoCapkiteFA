@@ -16,6 +16,8 @@
 
 # ##### END GPL LICENSE BLOCK #####
 
+import bpy
+
 from . import (
     menus,
     operators,
@@ -38,7 +40,10 @@ bl_info = {
 
 
 def register():
-    prefs.register()
+    if bpy.app.version < (4, 2):
+        prefs.register_legacy(bl_info)
+    else:
+        prefs.register()
     operators.register()
     menus.register()
 

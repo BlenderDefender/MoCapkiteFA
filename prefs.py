@@ -76,8 +76,9 @@ class MOCAPKITEFA_APT_Preferences(AddonPreferences):
         layout.operator("wm.url_open", text="Checkout Gumroad for other addons and more...",
                         icon='FUND').url = "https://gumroad.com/blenderdefender"
 
-        # updater draw function
-        addon_updater_ops.update_settings_ui(self, context)
+        if bpy.app.version < (4, 2):
+            # updater draw function
+            addon_updater_ops.update_settings_ui(self, context)
 
 
 classes = (
@@ -85,12 +86,17 @@ classes = (
 )
 
 
-def register(bl_info):
+def register_legacy(bl_info):
     # addon updater code and configurations
     # in case of broken version, try to register the updater first
     # so that users can revert back to a working version
     addon_updater_ops.register(bl_info)
 
+    for cls in classes:
+        bpy.utils.register_class(cls)
+
+
+def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 

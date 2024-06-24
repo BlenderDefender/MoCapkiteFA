@@ -1,0 +1,23 @@
+schema_version = "1.0.0"
+
+id = "blenderdefender_mocapcite_fa"
+name = "MoCapkiteFA - Face Motion Capture"
+version = "1.0.2"
+tagline = "Turns your Trackers and your head into facial motion capture"
+maintainer = "Blender Defender"
+website = "https://github.com/BlenderDefender/MoCapkiteFA/issues"
+
+type = "add-on"
+blender_version_min = "4.2.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+[build]
+paths_exclude_pattern = [
+    "/.git/",
+    "/.github/",
+    "/.vscode/",
+    ".gitignore",
+    "*_updater/",
+    "__pycache__/",
+    "Screenshots",
+]
