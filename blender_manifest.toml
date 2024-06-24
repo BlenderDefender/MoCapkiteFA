@@ -2,7 +2,7 @@ schema_version = "1.0.0"
 
 id = "blenderdefender_mocapcite_fa"
 name = "MoCapkiteFA - Face Motion Capture"
-version = "1.0.2"
+version = "1.0.3"
 tagline = "Turns your Trackers and your head into facial motion capture"
 maintainer = "Blender Defender"
 website = "https://github.com/BlenderDefender/MoCapkiteFA/issues"

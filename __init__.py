@@ -27,7 +27,7 @@ from . import (
 bl_info = {
     "name": "MoCapkiteFA - Face Motion Capture",
     "author": "Blender Defender, CG Matter",
-    "version": (1, 0, 2),
+    "version": (1, 0, 3),
     "blender": (2, 82, 0),
     "location": "View3D > Add > Motion Capture > Set up Facial Motion Capture",
     "description": "Turns your Trackers and your head into facial motion capture!",
