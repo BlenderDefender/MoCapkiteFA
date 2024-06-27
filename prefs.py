@@ -77,7 +77,6 @@ class MOCAPKITEFA_APT_Preferences(AddonPreferences):
                         icon='FUND').url = "https://gumroad.com/blenderdefender"
 
         if bpy.app.version < (4, 2):
-            # updater draw function
             addon_updater_ops.update_settings_ui(self, context)
 
 

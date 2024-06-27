@@ -46,7 +46,6 @@ def menu_func(self, context: 'Context'):
 
 classes = (
     MOCAPKITEFA_MT_main_menu,
-
 )
 
 
