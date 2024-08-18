@@ -72,7 +72,7 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
 
     def execute(self, context: 'Context'):
 
-        iter = 1
+        tracker_count = 1
 
         # rename trackers
         face_trackers = bpy.data.collections.new('FaceTrackers')
@@ -81,7 +81,7 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
             if trackers.type != 'EMPTY':
                 continue
 
-            iter = iter + 1
+            tracker_count = tracker_count + 1
             face_trackers.objects.link(trackers)
 
         if face_trackers:
@@ -93,14 +93,14 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
         bpy.ops.object.transform_apply()
 
         # trackers with depth
-        for value in range(1, iter):
+        for value in range(1, tracker_count):
             select_name = f"Tracker{value}"
             ob = bpy.data.objects[select_name]
             context.view_layer.objects.active = ob
             context.object.constraints["Follow Track"].depth_object = bpy.data.objects["Head"]
 
         # add armatures to trackers
-        for value in range(1, iter):
+        for value in range(1, tracker_count):
             select_name = f"Tracker{value}"
             ob = bpy.data.objects[select_name]
             context.view_layer.objects.active = ob
@@ -108,11 +108,11 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
                 enter_editmode=False, location=ob.matrix_world.translation)
 
         # select armatures
-        for bones in bpy.data.objects:
-            if bones.type != 'ARMATURE':
+        for object in bpy.data.objects:
+            if object.type != 'ARMATURE':
                 continue
 
-            bones.select_set(state=True)
+            object.select_set(state=True)
 
         # join armatures in correct order
         context.view_layer.objects.active = ob = bpy.data.objects['Armature']
@@ -120,7 +120,7 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
         bpy.ops.object.transform_apply()
 
         # rename bones in armature
-        for value in range(1, iter):
+        for value in range(1, tracker_count):
             bone_name = "Bone." + "0" * \
                 (2 - len(str(value - 1))) + str(value - 1)
             if value == 1:
@@ -136,14 +136,14 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
 
         # parent bones to trackers
         bpy.ops.object.posemode_toggle()
-        for value in range(1, iter):
-            track_name = f"Tracker{value}"
+        for value in range(1, tracker_count):
+            tracker_name = f"Tracker{value}"
             bone_name = f"Bone{value}"
             bone = bpy.data.objects['Armature'].data.bones.get(bone_name)
             bpy.data.objects['Armature'].data.bones.active = bone
             bpy.ops.pose.constraint_add(type='COPY_LOCATION')
             context.object.pose.bones[bone_name].constraints["Copy Location"].use_z = False
-            context.object.pose.bones[bone_name].constraints["Copy Location"].target = bpy.data.objects[track_name]
+            context.object.pose.bones[bone_name].constraints["Copy Location"].target = bpy.data.objects[tracker_name]
             bone.select = False
 
         return {'FINISHED'}
