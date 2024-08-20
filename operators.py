@@ -94,15 +94,13 @@ class MOCAPKITEFA_OT_facial_mocap(Operator):
 
         # trackers with depth
         for value in range(1, tracker_count):
-            select_name = f"Tracker{value}"
-            ob = bpy.data.objects[select_name]
+            ob = bpy.data.objects[f"Tracker{value}"]
             context.view_layer.objects.active = ob
             context.object.constraints["Follow Track"].depth_object = bpy.data.objects["Head"]
 
         # add armatures to trackers
         for value in range(1, tracker_count):
-            select_name = f"Tracker{value}"
-            ob = bpy.data.objects[select_name]
+            ob = bpy.data.objects[f"Tracker{value}"]
             context.view_layer.objects.active = ob
             bpy.ops.object.armature_add(
                 enter_editmode=False, location=ob.matrix_world.translation)
