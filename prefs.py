@@ -73,8 +73,8 @@ class MOCAPKITEFA_APT_Preferences(AddonPreferences):
     def draw(self, context: 'Context'):
         layout: UILayout = self.layout
 
-        layout.operator("wm.url_open", text="Checkout Gumroad for other addons and more...",
-                        icon='FUND').url = "https://gumroad.com/blenderdefender"
+        layout.operator("wm.url_open", text="Checkout my other addons...",
+                        icon='FUND').url = "https://extensions.blender-defender.com"
 
         if bpy.app.version < (4, 2):
             addon_updater_ops.update_settings_ui(self, context)
