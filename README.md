@@ -5,9 +5,9 @@
 
 # MoCapkiteFA
 
-MoCapkiteFA is an addon for blender, that allows you to quickly set up facial motion capture with just 3 easy steps.
+MoCapkiteFA is an addon for Blender, that allows you to quickly set up facial motion capture with just 3 easy steps.
 
-After shooting your footage and creating a head-model, do this following steps:
+After shooting your footage and creating a head-model, here's what you'll have to do:
 
 # 1. Open Your model and track your footage
 
@@ -17,16 +17,16 @@ If your head-model is already a Blender file, then just go and open it like in t
 
 Otherwise go to File >> Append >> "Your head-model-file" >> Models >> "Your head model" and import your model.
 
-Now it's time to track the footage.
-It's very important that we do this in the layout Tab and just switch the workspace as you can see in the image, because the Addon won't work if we do this in another way.
+Now it's time to track the footage!
+It's very important that we do this in the 'Layout' tab and just switch the workspace as you can see in the image, because the Addon won't work if we do this in another way.
 
 ![Switch Workspace](https://github.com/BlenderDefender/MoCapkiteFA/raw/main/Screenshots/Face_Mocap_Screenshot2.png)
 
-In the Motion Tracking Workspace, open your footage and set scene frames. Pay attention to the aspect ratio and set the scene ratio to the ratio of your Footage:
+In the Motion Tracking Workspace, open your footage and set scene frames. Pay attention to the aspect ratio and set the scene ratio to the ratio of your footage:
 
 ![Open Footage](https://github.com/BlenderDefender/MoCapkiteFA/raw/main/Screenshots/Face_Mocap_Screenshot3.png)
 
-Now its time to set up your trackers. Track every tracking point of your face. Make sure you didn't leave the Layout Tab:
+Now its time to set up your trackers. Track every tracking point of your face. Make sure you don't leave the Layout Tab:
 
 ![Track](https://github.com/BlenderDefender/MoCapkiteFA/raw/main/Screenshots/Face_Mocap_Screenshot4.png)
 
@@ -42,7 +42,7 @@ Then you'll have to do the exact aligning manually. Open up a background image a
 
 # 3. Set up Motion Capture
 
-Switch Back to Solid mode, select the face Object and Press Shift + A Add >> Motion Capture >> Setup Facial Motion Capture. This may take a while:
+Switch back to Solid mode, select the face object and Press Shift + A Add >> Motion Capture >> Setup Facial Motion Capture. This may take a while:
 
 ![Setup MoCap](https://github.com/BlenderDefender/MoCapkiteFA/raw/main/Screenshots/Face_Mocap_Screenshot7.png)
 
@@ -51,7 +51,7 @@ After the programm finished successfully, it should look like this:
 ![Finished](https://github.com/BlenderDefender/MoCapkiteFA/raw/main/Screenshots/Face_Mocap_Screenshot8.png)
 
 And yes, that's all you have to do. You might adjust the weight paint a bit so that it looks more natural.
-**[Watch this video from CG Matter](https://www.youtube.com/watch?v=uNK8S19OSmA) if you want a detailed explanaition on how to do the MoCap.**
+**[Watch this video from CG Matter](https://www.youtube.com/watch?v=uNK8S19OSmA) if you want a detailed explanation on how to do the MoCap.**
 
 ## System requirements:
 
